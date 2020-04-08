@@ -1,4 +1,4 @@
-Discord Bot : League of Legend player information search bot
+Discord Bot : Team Fight Tactics(TFT) player information search bot
 ===
 ***
 1 . Discord.py Version : 1.0.0(Rewrite Version)
