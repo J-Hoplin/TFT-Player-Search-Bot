@@ -19,3 +19,4 @@ Discord Bot : Team Fight Tactics(TFT) player information search bot
   
   ![img](1.PNG)
   ![img](2.PNG)
+  ![img](3.PNG)
