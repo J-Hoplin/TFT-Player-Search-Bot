@@ -55,6 +55,7 @@ async def on_message(message): # on_message() event : when the bot has recieved 
         try:
             krTFTProfileURL = 'https://lolchess.gg/profile/kr/'
             playerNickname = ''.join((message.content).split(' ')[1:])
+            playerNicknameShow = ' '.join((message.content).split(' ')[1:])
             playerInfoURL = krTFTProfileURL + quote(playerNickname)
             html = urlopen(playerInfoURL)
             bs = BeautifulSoup(html, 'html.parser')
@@ -106,7 +107,7 @@ async def on_message(message): # on_message() event : when the bot has recieved 
                 embed.set_thumbnail(url=tierIcon)
                 embed.set_footer(text='Service provided by Hoplin.',
                                  icon_url='https://avatars2.githubusercontent.com/u/45956041?s=460&u=1caf3b112111cbd9849a2b95a88c3a8f3a15ecfa&v=4')
-                await message.channel.send("TFT player " + playerNickname + "'s information search", embed=embed)
+                await message.channel.send("TFT player " + playerNicknameShow + "'s information search", embed=embed)
 
 
             else:
@@ -126,6 +127,18 @@ async def on_message(message): # on_message() event : when the bot has recieved 
                 rankplace = bs.find('span', {'class': 'rank-region'}).text.strip()
                 statsli = returnStatsTFT(bs)
                 satatsPercentage = returnStatsPercentage(bs)
+
+                #Most used Synergy
+
+                mostSyn = bs.find('div',{'class' : 'profile__recent__trends__traits'}).table.tbody.findAll('tr')[0]
+                synergyName = mostSyn.findAll('td')
+                synergyInfo = []
+                for sf in synergyName:
+                    synergyInfo.append(sf.text.strip())
+
+                #[Synergy Name , 1성조합횟수,2성조합횟수,3성조합횟수,게임수,승률(=1등),Top비율 (=Top4비율)]
+
+
                 AveragePlace = bs.find('dl', {'class': re.compile('average average-[0-9]*')}).dd.text
                 recentNumberofGame = bs.find('div', {'class': 'profile__placements'}).h4.text.strip()
                 embed = discord.Embed(title="Team Fight Tactics player stats from lolchess.gg", description="", color=0x5CD1E5)
@@ -134,6 +147,9 @@ async def on_message(message): # on_message() event : when the bot has recieved 
                                 inline=False)
                 embed.add_field(name="Rank Information",
                                 value=tierInfo + "(" + lpInfo + ")" + " | " + toppercent + " | " + "Ranking : " + rankplace,
+                                inline=False)
+                embed.add_field(name="Most used Synergy : "+synergyInfo[0],
+                                value="Use : "+synergyInfo[4] + " time(s) | " + "1st place Ratio : " + synergyInfo[-2] + " | Top4 Ratio : " + synergyInfo[-1],
                                 inline=False)
                 embed.add_field(name="Number of Win(#1)",
                                 value=statsli[0] + "/" + satatsPercentage[0],
@@ -156,7 +172,7 @@ async def on_message(message): # on_message() event : when the bot has recieved 
                 embed.set_thumbnail(url=tierIcon)
                 embed.set_footer(text='Service provided by Hoplin.',
                                  icon_url='https://avatars2.githubusercontent.com/u/45956041?s=460&u=1caf3b112111cbd9849a2b95a88c3a8f3a15ecfa&v=4')
-                await message.channel.send("TFT player " + playerNickname + "'s information search", embed=embed)
+                await message.channel.send("TFT player " + playerNicknameShow + "'s information search", embed=embed)
         except AttributeError as e:
             embed = discord.Embed(title="Nick name not exist", description="", color=0x5CD1E5)
             embed.add_field(name="해당 닉네임의 플레이어가 존재하지 않습니다.",value="플레이어 이름을 확인해 주세요",inline=False)
