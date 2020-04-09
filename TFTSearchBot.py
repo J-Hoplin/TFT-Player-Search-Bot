@@ -15,7 +15,7 @@ import requests
 import unicodedata
 import time
 client = discord.Client()
-token = "Njk0MTIxODAyODQ2MTc1MjQy.Xo6_8w.F-xK-PaFu43QFqlYyEuI-DCFD3Y"
+token = ""
 
 def returnStatsTFT(bs):
     # 통계 정보
