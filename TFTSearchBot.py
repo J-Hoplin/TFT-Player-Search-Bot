@@ -15,7 +15,7 @@ import requests
 import unicodedata
 import time
 client = discord.Client()
-token = ""
+token = "Njk0MTIxODAyODQ2MTc1MjQy.Xo6_8w.F-xK-PaFu43QFqlYyEuI-DCFD3Y"
 
 def returnStatsTFT(bs):
     # 통계 정보
@@ -78,6 +78,19 @@ async def on_message(message): # on_message() event : when the bot has recieved 
                 # 티어 정보
                 tierInfo = bs.find('div', {'class': 'profile__tier__icon'}).img['alt']
 
+                #Most Syergy
+                embedSynergy = True
+                mostSyn = bs.find('div', {'class': 'profile__recent__trends__traits'})
+                synergyInfo = []
+                if mostSyn == None:
+                    embedSynergy = False
+                    pass
+                else:
+                    mostSyn = mostSyn.table.tbody.findAll('tr')[0].findAll('td')
+                    for sf in mostSyn:
+                        synergyInfo.append(sf.text.strip())
+
+
                 statsli = returnStatsTFT(bs)
                 embed = discord.Embed(title="Team Fight Tactics player stats from lolchess.gg", description="", color=0x5CD1E5)
                 embed.add_field(name="Click on the link below to view more information",
@@ -86,6 +99,13 @@ async def on_message(message): # on_message() event : when the bot has recieved 
                 embed.add_field(name="Rank Information",
                                 value=tierInfo + "(Unable to find Raiting & Ranking Info)",
                                 inline=False)
+                if mostSyn:
+                    embed.add_field(name="Most used Synergy : " + synergyInfo[0],
+                                    value="Use : " + synergyInfo[4] + " time(s) | " + "1st place Ratio : " +
+                                          synergyInfo[-2] + " | Top4 Ratio : " + synergyInfo[-1],
+                                    inline=False)
+                else:
+                    pass
                 embed.add_field(name="Number of Win(#1)",
                                 value=statsli[0] + "/Top 0.00%",
                                 inline=True)
