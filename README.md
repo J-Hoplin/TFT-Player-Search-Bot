@@ -1,5 +1,6 @@
 Discord Bot : Team Fight Tactics(TFT) player information search bot
 ===
+**봇 소스코드를 사용하시되 출처를 밝히고 사용해주세요**
 ***
 1 . Discord.py Version : 1.0.0(Rewrite Version)
 
