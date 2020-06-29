@@ -11,6 +11,11 @@ Discord Bot : Team Fight Tactics(TFT) player information search bot
 
 4 . Support : Korea Server TFT(Team Fight Tactics) Player search bot
 ***
+- 정기점검 일표
+
+  - 20200629 정기점검 완료. 상태 : Good
+
+***
   - 배치가 완료되지 않은 전적에 대해서는 백분율 정보가 표시되지 않습니다.
   
   - Most used synergy는 한판이상 플레이 했을 시 표시가 됩니다. 
